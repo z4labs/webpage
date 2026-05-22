@@ -1,0 +1,6 @@
+{
+  "name": "Z4X Labs Landing Page",
+  "description": "A beautiful dark-mode landing page for Z4X Labs with smooth scroll animations and deployment guides.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
