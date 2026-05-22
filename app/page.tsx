@@ -2,259 +2,327 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import Image from 'next/image';
 import { 
-  CloudSun, 
+  Cloud, 
   ShieldCheck, 
-  Terminal, 
-  Cpu, 
-  Layers, 
   Network, 
-  Server, 
-  HardDrive,
-  CheckCircle,
-  Database,
-  ArrowRight,
-  TrendingUp,
-  Workflow,
-  Sparkles
+  Cpu, 
+  CheckCircle2, 
+  ArrowRight, 
+  Zap,
+  Activity,
+  Terminal,
+  Globe
 } from 'lucide-react';
 import { Z4XLogo, Z4XSparkle } from '@/components/z4x-logo';
 
-const IT_SOLUTIONS = [
+const CLOUD_SERVICES = [
   {
-    icon: CloudSun,
-    title: "Enterprise Multi-Cloud & DevOps",
-    metrics: "99.999% SLA Architectures",
-    description: "Orchestrating resilient public/private cloud environments utilizing Kubernetes, Terraform state control, and modern container orchestration channels.",
-    capabilities: ["Sovereign Infrastructure", "Automatic Horizontal Scaling", "Terraform Multi-State Delivery"]
+    icon: Cloud,
+    tag: "Orchestration",
+    title: "Sovereign Multi-Cloud Clusters",
+    description: "Deploy robust, isolated cloud compute networks across AWS, GCP, and private bare-metal using Kubernetes. Out-of-the-box auto-healing, multi-zone recovery plans, and zero-downtime rolling updates.",
+    capabilities: ["Sovereign Private Deployments", "Global Kubernetes Pod Autoscale", "Automated Multi-Zone Disaster Recovery"]
   },
   {
     icon: ShieldCheck,
-    title: "Zero-Trust Perimeter Security",
-    metrics: "Continuous SOC-2 Audits",
-    description: "Establishing military-grade permission boundaries, identity proxies, and real-time active intrusion threat vector mitigation systems.",
-    capabilities: ["Tailscale Mesh Gateways", "Encrypted Tunneling Layers", "Proactive Vector Isolation"]
+    tag: "Perimeter",
+    title: "Zero-Trust Mesh Protection",
+    description: "Safeguard proprietary microservices and sensitive databases. We establish military-grade access proxies, encrypted wireguard tunneling, and active malicious vector containment systems.",
+    capabilities: ["Continuous SOC-2 Auditing Framework", "Identity-Aware Access Gateways", "Encrypted Anycast Tunnel Channels"]
   },
   {
     icon: Network,
-    title: "SD-WAN & Routing Architectures",
-    metrics: "Sub-10ms Global Latency",
-    description: "Designing high-availability multi-region backbones optimized for high-bandwidth telemetry and state replication.",
-    capabilities: ["Traffic Priority Shaping", "Redundant VPN Tunnels", "Anycast Geo Route Delivery"]
+    tag: "Throughput",
+    title: "SD-WAN Anycast Routing",
+    description: "Eliminate connection bottlenecks and optimize server-to-server data exchange. Deploy sub-10ms priority routing tables delivering global content synchronization efficiently.",
+    capabilities: ["Autonomous Layer-4 Traffic Shaping", "Redundant Virtual Private Tunnels", "Geo-Proximity Content Balancing"]
   },
   {
-    icon: HardDrive,
-    title: "Managed Infrastructure & Data Engine",
-    metrics: "Zero Data Leak Storage",
-    description: "End-to-end telemetry auditing, automated maintenance schedules, database clustering, and state-of-the-art disaster mitigation.",
-    capabilities: ["Proactive Storage Sharding", "Automated Daily Replications", "Cluster State Rebalancing"]
+    icon: Cpu,
+    tag: "Automation",
+    title: "High-Velocity GitOps & IaC",
+    description: "Achieve extreme corporate release velocity. We structure clean, unified configuration states via Terraform, allowing your teams to provision new staging environments safely.",
+    capabilities: ["State-Controlled IaC Pipelines", "Pre-Deployment Static Security Scans", "One-Click Region Redundancy"]
   }
 ];
 
 export default function Home() {
-  // Simulator State for modern IT service system
-  const [activeTunnelCount, setActiveTunnelCount] = useState(4);
-  const [networkLatency, setNetworkLatency] = useState(12.4);
-  const [incomingPackets, setIncomingPackets] = useState(157402);
-  const [activeTab, setActiveTab] = useState<'monitor' | 'threats' | 'pipelines'>('monitor');
-  const [simulationLogs, setSimulationLogs] = useState<string[]>([
-    "[CORE-ROUTE-01] Anycast multi-state routing table synchronized across 12 region zones.",
-    "[SECURE-VPN] Secure WireGuard Handshake established with European peer node z4x-edge-03.",
-    "[METRIC-DAEMON] Horizontal Pod Autoscaler triggered: scaled production API replications to 14."
+  // Live Simulated Telemetry State
+  const [pingGoogle, setPingGoogle] = useState(12.4);
+  const [pingCF, setPingCF] = useState(8.2);
+  const [pingAWS, setPingAWS] = useState(22.1);
+  const [logs, setLogs] = useState<string[]>([
+    "[SYSTEM] Initiating boundary telemetry...",
+    "[ROUTER] Anycast BGP session established.",
+    "[SECURE] Z4X Gateway active."
   ]);
 
-  // Keep simulator ticking
   useEffect(() => {
-    const timer = setInterval(() => {
-      setNetworkLatency(prev => {
-        const delta = (Math.random() - 0.5) * 0.4;
-        return parseFloat(Math.max(8.0, Math.min(18.0, prev + delta)).toFixed(2));
-      });
-      setIncomingPackets(prev => prev + Math.floor(Math.random() * 8) + 1);
+    const interval = setInterval(() => {
+      setPingGoogle(prev => Math.max(4, Math.min(30, prev + (Math.random() * 4 - 2))));
+      setPingCF(prev => Math.max(2, Math.min(20, prev + (Math.random() * 3 - 1.5))));
+      setPingAWS(prev => Math.max(10, Math.min(45, prev + (Math.random() * 5 - 2.5))));
 
-      // Random logs
-      if (Math.random() > 0.75) {
-        setSimulationLogs(prev => {
-          const events = [
-            "[CORE-ROUTE-02] Balanced geo-session route: Tokyo edge forwarded to Osaka storage unit.",
-            "[KUBE-PROXY] Outbound API call latency within nominal bounds: 4.8ms.",
-            "[HEALTH-DAEMON] All cluster nodes report green (0 issues found across all microservices).",
-            "[TRAFFIC-SHAPER] Dynamic load allocation completed for client tunnel session 1022."
-          ];
-          const newEvent = events[Math.floor(Math.random() * events.length)];
-          return [newEvent, ...prev.slice(0, 4)];
-        });
+      if (Math.random() > 0.5) {
+        const events = [
+          `[NODE-01] Rerouting CF edge traffic (latency threshold optimized)`,
+          `[GCP-SYNC] Cross-region replication verified at ${(Math.random() * 2 + 1).toFixed(2)}s`,
+          `[AWS-LINK] Packet loss detected: 0.00%`,
+          `[L4-PROXY] Rebalancing load balancers for inbound port 443`,
+          `[SECURITY] Threat vectors mitigated at perimeter layer`,
+          `[TELEMETRY] Nominal operations matched across 12 global regions`
+        ];
+        setLogs(prev => [events[Math.floor(Math.random() * events.length)], ...prev].slice(0, 5));
       }
-    }, 2800);
-
-    return () => clearInterval(timer);
+    }, 2500);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div id="landing-container" className="relative min-h-screen flex flex-col justify-between items-center overflow-x-hidden bg-[#030407] select-none text-[#f1f3f9]">
+    <div id="landing-universe" className="relative min-h-screen flex flex-col justify-between items-center overflow-x-hidden bg-[#020306] text-[#f1f3f9] selection:bg-indigo-500/30 selection:text-white">
       
-      {/* Background visual graphics - exactly matches the look of the uploaded image */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_90%_90%_at_50%_-20%,rgba(99,102,241,0.12),rgba(0,0,0,0))]" />
-      <div className="absolute top-[35%] left-[-15%] w-[450px] h-[450px] bg-indigo-500/5 rounded-full filter blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-15%] w-[450px] h-[450px] bg-purple-500/5 rounded-full filter blur-[120px] pointer-events-none" />
+      {/* Background Visual Gradients matching premium modern tech pages */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_-10%,rgba(79,70,229,0.15),rgba(0,0,0,0))]" />
+      <div className="absolute top-[25%] left-[-10%] w-[500px] h-[500px] bg-indigo-550/5 rounded-full filter blur-[150px] pointer-events-none" />
+      <div className="absolute top-[45%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/5 rounded-full filter blur-[150px] pointer-events-none" />
       
-      {/* Exquisite design curves overlay in backgrounds */}
-      <svg className="absolute top-0 left-0 w-full h-[600px] opacity-15 pointer-events-none z-0">
-        <path d="M-100 100 Q 300 350 700 120 T 1600 250" fill="none" stroke="#6366f1" strokeWidth="1" />
-        <path d="M-50 200 Q 400 100 900 300 T 1700 100" fill="none" stroke="#8b5cf6" strokeWidth="0.8" strokeDasharray="5 5" />
+      {/* Background geometric overlay */}
+      <svg className="absolute top-0 left-0 w-full h-[700px] opacity-10 pointer-events-none z-0">
+        <path d="M-200 150 Q 400 450 900 150 T 2000 300" fill="none" stroke="#818cf8" strokeWidth="1" />
+        <path d="M-100 250 Q 500 150 1100 400 T 2100 150" fill="none" stroke="#22d3ee" strokeWidth="0.8" strokeDasharray="6 6" />
       </svg>
 
-      {/* Tiny sparkles matched from image bottom corner & header */}
-      <div className="absolute bottom-10 right-10 opacity-30 text-white animate-pulse pointer-events-none z-0">
-        <Z4XSparkle size={32} />
-      </div>
-      <div className="absolute top-[40%] right-[10%] opacity-20 text-white animate-pulse pointer-events-none z-0">
-        <Z4XSparkle size={18} />
+      {/* Decorative Sparkles */}
+      <div className="absolute bottom-12 right-12 opacity-25 text-indigo-400 animate-pulse pointer-events-none z-0 hidden md:block">
+        <Z4XSparkle size={40} />
       </div>
 
-      {/* STICKY HEADER */}
-      <header id="site-header" className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-gray-900/40 bg-[#030407]/60">
+      {/* FIXED PREMIUM NAVIGATION HEADER */}
+      <header id="main-navigation" className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-gray-950/40 bg-[#020306]/75">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            {/* Split emblem from words */}
-            <Z4XLogo size={28} className="text-[#f1f3f9] hover:text-[#a5b4fc] transition-colors" />
+          <div className="flex items-center space-x-3.5">
+            {/* Split Z4X Hexagon logo & words */}
+            <Z4XLogo size={30} className="text-white hover:text-indigo-400 transition-colors duration-300" />
             <div className="flex flex-col text-left">
-              <span className="font-display font-medium tracking-wider text-xs uppercase text-white leading-none">
-                Z4XLabs<span className="text-gray-500 font-light font-sans inline-block ml-0.5">.com</span>
+              <span className="font-sans font-semibold tracking-wide text-sm text-white leading-none">
+                Z4X Labs
               </span>
-              <span className="text-[8.5px] text-gray-500 font-mono uppercase tracking-[0.2em] mt-0.5">innovate. build. scale.</span>
+              <span className="text-[9px] text-gray-500 font-mono uppercase tracking-[0.25em] mt-0.5">
+                innovate • build • scale
+              </span>
             </div>
           </div>
 
-          <nav id="navbar-links" className="hidden md:flex items-center space-x-8 text-xs font-mono uppercase tracking-wider text-gray-400">
-            <a href="#hero-main" className="hover:text-white transition-all">Home</a>
-            <a href="#it-solutions" className="hover:text-white transition-all">Cloud Solutions</a>
-            <a href="#sandbox" className="hover:text-white transition-all">Edge Simulator</a>
+          <nav id="nav-item-links" className="hidden sm:flex items-center space-x-8 text-xs font-mono uppercase tracking-wider text-gray-400">
+            <a href="#about-platform" className="hover:text-white transition-all">Overview</a>
+            <a href="#cloud-services" className="hover:text-white transition-all">Cloud Engineering</a>
           </nav>
 
-          <div id="header-status" className="flex items-center space-x-2 text-[10px] font-mono text-gray-500 tracking-wider uppercase bg-gray-950/70 border border-gray-900 px-3 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>SLA ACTIVE</span>
+          <div id="service-status" className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-3 text-[10px] font-mono text-gray-400 tracking-wider bg-gray-950/90 border border-gray-900 px-3.5 py-1.5 rounded-full">
+            <div className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping-slow" />
+              <span className="text-gray-300 font-semibold uppercase">Cloud SLA Active</span>
+            </div>
+            <div className="hidden sm:flex items-center space-x-2.5 border-l border-gray-800 pl-3">
+              <span className="flex items-center gap-1"><span className="text-gray-500">GCP:</span> <span className="text-indigo-400">{pingGoogle.toFixed(1)}ms</span></span>
+              <span className="flex items-center gap-1"><span className="text-gray-500">CF:</span> <span className="text-cyan-400">{pingCF.toFixed(1)}ms</span></span>
+            </div>
           </div>
         </div>
       </header>
 
       {/* HERO SECTION */}
-      <section id="hero-main" className="relative z-10 w-full max-w-5xl px-6 pt-16 pb-16 md:pt-28 md:pb-24 flex flex-col items-center text-center">
+      <section id="hero-block" className="relative z-10 w-full max-w-6xl px-6 pt-16 pb-12 md:pt-24 md:pb-16 flex flex-col items-center text-center">
         
-        {/* Large Centered Separated Hexagonal Emblem */}
+        {/* Breathing brand icon centerpiece */}
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative mb-10 flex cursor-pointer focus:outline-none"
+          transition={{ duration: 1.0, ease: "easeOut" }}
+          className="relative mb-8"
         >
-          {/* Breathing ambient drop shadow circle behind */}
-          <div className="absolute inset-0 m-4 rounded-full bg-indigo-500/10 filter blur-3xl animate-pulse" />
-          <div className="absolute -inset-1 rounded-full border border-indigo-500/5 animate-ping-slow pointer-events-none" />
-          
-          <Z4XLogo size={140} className="text-white hover:scale-[1.03] active:scale-[0.98] transition-transform duration-300 relative z-10" />
+          <div className="absolute inset-0 m-4 rounded-full bg-indigo-500/15 filter blur-3xl animate-pulse" />
+          <Z4XLogo size={130} className="text-indigo-400 hover:text-white transition-colors duration-500 relative z-10 hover:scale-[1.02] transform transition-transform" />
         </motion.div>
 
-        {/* Separated Wordings matched from upload asset */}
+        {/* Separated brand wordmark */}
         <div className="space-y-1">
-          <motion.h2 
+          <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-none"
+            className="font-sans font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight text-white uppercase"
           >
-            z4xlabs.com
-          </motion.h2>
+            z4xlabs<span className="text-gray-500 font-light font-sans lowercase">.com</span>
+          </motion.h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="font-sans text-gray-500 text-xs sm:text-sm md:text-base tracking-[0.35em] uppercase"
+            className="font-mono text-gray-500 text-xs sm:text-sm tracking-[0.45em] uppercase font-medium"
           >
             innovate. build. scale.
           </motion.p>
         </div>
 
-        {/* Catchy dynamic descriptive hero body */}
-        <motion.p 
+        {/* Clear announcement header */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="font-sans text-xl sm:text-2xl md:text-3xl max-w-3xl mt-10 font-normal leading-snug text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-200 to-indigo-300"
+        >
+          Engineering Comprehensive Enterprise Cloud Solutions & Scalable GitOps Architectures
+        </motion.h2>
+
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="font-sans text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mt-8 font-light leading-relaxed text-center"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="font-sans text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mt-5 font-light leading-relaxed"
         >
-          Engineering comprehensive cloud software integrations, enterprise perimeter protection algorithms, and reliable high-availability DevOps pipelines for next-generation digital products.
+          We construct bulletproof multi-cloud infrastructures, manage Kubernetes clusters, ensure Zero-Trust networking, and automate infrastructure deployments for lightning-fast delivery teams.
         </motion.p>
 
-        {/* Subtitle Badge */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-10 font-mono text-[10px] tracking-[0.3em] uppercase text-indigo-400 bg-indigo-950/20 border border-indigo-500/15 rounded-md px-5 py-2 flex items-center space-x-2"
+        {/* Dynamic CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-mono"
         >
-          <Workflow className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Full-Spectrum System Integrations</span>
+          <a
+            href="#cloud-services"
+            className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 shadow-lg shadow-indigo-600/15 flex items-center justify-center space-x-2"
+          >
+            <span>Explore Engineering Services</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </motion.div>
 
       </section>
 
-      {/* IT SOLUTIONS MAP SECTION */}
-      <section id="it-solutions" className="relative z-10 w-full max-w-5xl px-6 py-20 border-t border-gray-900/60 scroll-mt-10">
+      {/* SHINING TECH IMAGE BANNER PREVIEW */}
+      <section id="about-platform" className="relative z-10 w-full max-w-5xl px-6 py-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 0.2 }}
+          className="relative bg-gradient-to-b from-[#0a0d18] to-[#04050a] border border-indigo-500/20 rounded-3xl p-3 md:p-4 shadow-2xl shadow-indigo-500/5 group"
+        >
+          {/* Inner ambient light overlay */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/0 via-cyan-500/0 to-indigo-500/5 rounded-3xl pointer-events-none transition-opacity duration-700 group-hover:opacity-60" />
+          
+          <div className="relative overflow-hidden rounded-2xl aspect-[16/9] border border-gray-900">
+            {/* The actual generated high-contrast tech background */}
+            <Image 
+              src="/cloud_banner.png" 
+              alt="Z4X Labs Enterprise Cloud Visualizer" 
+              fill
+              className="object-cover scale-[1.01] hover:scale-[1.03] transition-transform duration-1000"
+              referrerPolicy="no-referrer"
+            />
+            
+            {/* Modern floating status badges layered beautifully over our actual generated visual asset */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 flex flex-col justify-between p-4 md:p-6 text-left">
+              
+              {/* Top Row Indicators */}
+              <div className="flex items-center justify-between">
+                <div className="bg-indigo-950/80 backdrop-blur-md border border-indigo-500/20 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-mono uppercase text-indigo-300 flex items-center gap-1.5 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                  <span>Cloud Topology Live Engine</span>
+                </div>
+
+                <div className="bg-[#030408]/80 backdrop-blur-md border border-gray-800 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-mono text-gray-400 uppercase tracking-widest hidden sm:block">
+                  Z4X Region Zone: Central Edge
+                </div>
+              </div>
+
+              {/* Bottom Row Highlights */}
+              <div className="space-y-2 max-w-lg">
+                <h3 className="font-sans font-bold text-lg sm:text-2xl md:text-3xl text-white tracking-tight leading-tight">
+                  High-Availability Cloud Backbones Constructed Specially For Enterprise Pipelines.
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-gray-300 leading-relaxed font-light hidden md:block">
+                  Through declarative cluster definitions, zero-trust overlay meshes, and sub-10ms active payload balancing, we guarantee reliable up-times for all modern digital workloads.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2 text-[9px] sm:text-[10px] font-mono">
+                  <span className="bg-[#030408]/80 backdrop-blur-sm border border-emerald-500/20 px-2.5 py-1 rounded text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3" />
+                    99.999% SLA Architectures
+                  </span>
+                  <span className="bg-[#030408]/80 backdrop-blur-sm border border-cyan-500/20 px-2.5 py-1 rounded text-cyan-400 flex items-center gap-1">
+                    <Zap className="w-3 h-3" />
+                    Multi-Zone Redundant Backups
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* CLOUD SERVICES SECTION */}
+      <section id="cloud-services" className="relative z-10 w-full max-w-5xl px-6 py-16 md:py-24 border-t border-gray-950 scroll-mt-10">
         
-        <div className="text-left mb-12 sm:mb-16">
-          <span className="text-[10px] uppercase font-mono tracking-widest text-indigo-400 block font-semibold">
-            Enterprise Offerings
+        <div className="text-center md:text-left mb-14 md:mb-16">
+          <span className="text-[10px] uppercase font-mono tracking-[0.25em] text-indigo-400 font-bold block">
+            CLOUD SPECIALIZATION
           </span>
-          <h2 className="font-display tracking-tight text-3xl sm:text-4xl font-semibold text-white mt-2">
-            Complete IT Service Suite
+          <h2 className="font-sans tracking-tight text-3xl sm:text-4xl font-extrabold text-white mt-1.5">
+            Wanted Cloud Infrastructure Capabilities
           </h2>
-          <p className="font-sans text-gray-400 mt-3 font-light text-sm sm:text-base max-w-2xl">
-            We deliver state-of-the-art software systems and cloud governance mechanisms designed to ensure scale limits do not restrict your corporate velocity.
+          <p className="font-sans text-gray-400 mt-3 font-light text-sm sm:text-base max-w-2xl leading-relaxed">
+            Eliminate scaling limits and manage global compute arrays autonomously. We do the heavy lifting to deliver secure, declarative cloud backbones.
           </p>
         </div>
 
-        {/* Detailed Grid */}
+        {/* Clear, attractive list of wanted offerings */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          {IT_SOLUTIONS.map((item, index) => {
-            const Icon = item.icon;
+          {CLOUD_SERVICES.map((service, index) => {
+            const Icon = service.icon;
             return (
-              <motion.div 
+              <motion.div
                 key={index}
-                whileHover={{ y: -3 }}
-                className="bg-gradient-to-br from-[#080a0f] via-[#04050a] to-[#030407] border border-gray-900/70 hover:border-indigo-500/25 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group"
+                whileHover={{ y: -3, borderColor: "rgba(99, 102, 241, 0.25)" }}
+                className="bg-gradient-to-b from-[#060810] to-[#030408] border border-gray-900 rounded-2xl p-6 md:p-8 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden"
               >
-                {/* Accent decoration */}
-                <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-indigo-500/5 filter blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                
                 <div>
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-950/30 border border-indigo-500/15 flex items-center justify-center text-indigo-400 group-hover:text-indigo-350 group-hover:border-indigo-500/30 transition-all">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-11 h-11 rounded-xl bg-indigo-950/40 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                      <Icon className="w-5.5 h-5.5" />
                     </div>
-                    <span className="text-[10px] font-mono text-indigo-400/80 bg-indigo-950/20 border border-indigo-500/10 rounded px-2 py-0.5">
-                      {item.metrics}
+                    <span className="text-[9px] font-mono text-indigo-400 bg-indigo-950/20 border border-indigo-500/10 rounded-md px-2.5 py-1 uppercase tracking-wider font-semibold">
+                      {service.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-display font-medium text-white text-base mt-5 tracking-wide">
-                    {item.title}
+                  <h3 className="font-sans font-bold text-white text-lg mt-6 tracking-wide group-hover:text-indigo-200 transition-colors">
+                    {service.title}
                   </h3>
-                  <p className="text-xs text-gray-400 mt-2.5 font-light leading-relaxed">
-                    {item.description}
+                  
+                  <p className="text-xs sm:text-sm text-gray-400 mt-3.5 font-light leading-relaxed">
+                    {service.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-gray-900/60 flex flex-col space-y-2">
-                  <span className="text-[9.5px] uppercase font-mono tracking-wider font-bold text-gray-550 block">Operational Pillars</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {item.capabilities.map((pill, idx) => (
-                      <span key={idx} className="text-[9px] font-sans text-gray-405 bg-[#07090f] border border-gray-900 px-2.5 py-0.5 rounded">
-                        • {pill}
-                      </span>
+                {/* Specific features list */}
+                <div className="mt-8 pt-5 border-t border-gray-950 flex flex-col space-y-2.5">
+                  <span className="text-[10px] uppercase font-mono tracking-wider font-bold text-gray-500">
+                    Included Deliverables
+                  </span>
+                  <ul className="space-y-1.5">
+                    {service.capabilities.map((pill, idx) => (
+                      <li key={idx} className="flex items-center space-x-2 text-[11px] sm:text-xs text-gray-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                        <span>{pill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
 
               </motion.div>
@@ -264,115 +332,96 @@ export default function Home() {
 
       </section>
 
-      {/* OPERATIONS SANDBOX AND LOGS DEMONSTRATION */}
-      <section id="sandbox" className="relative z-10 w-full max-w-5xl px-6 py-20 border-t border-gray-900/60 scroll-mt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      {/* LIVE EDGE TELEMETRY */}
+      <section id="live-telemetry" className="relative z-10 w-full max-w-5xl px-6 py-12 md:py-16 border-t border-gray-950 scroll-mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-gradient-to-br from-[#060810] to-[#020306] border border-indigo-500/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
           
-          <div className="lg:col-span-5 flex flex-col justify-between text-left">
-            <div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-[#f39c12] block font-semibold">
-                Autonomous Diagnostics
-              </span>
-              <h2 className="font-display tracking-tight text-3xl sm:text-4xl font-semibold text-white mt-2">
-                Operational Telemetry
-              </h2>
-              <p className="font-sans text-gray-400 mt-4 font-light text-sm sm:text-base leading-relaxed">
-                Review system stability status parameters updated autonomously directly by our container networks. Experience the real-time routing mechanisms running underneath the hood.
-              </p>
+          {/* Accent decoration */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-indigo-500/5 filter blur-2xl pointer-events-none" />
+
+          {/* Left Column: Latency Cards */}
+          <div className="md:col-span-5 flex flex-col space-y-4">
+            <div className="flex items-center space-x-2 text-indigo-400 mb-2">
+              <Activity className="w-4 h-4" />
+              <span className="text-[10px] font-mono tracking-widest font-bold uppercase">Live Global Routing</span>
             </div>
 
-            <div className="mt-8 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[#05060b] border border-gray-900 p-4 rounded-xl">
-                  <span className="text-gray-500 text-[10px] uppercase tracking-wider font-bold font-mono">Anycast Latency</span>
-                  <span className="font-mono text-xl font-bold text-white mt-1 block">
-                    {networkLatency} ms
-                  </span>
-                </div>
-                <div className="bg-[#05060b] border border-gray-900 p-4 rounded-xl">
-                  <span className="text-gray-500 text-[10px] uppercase tracking-wider font-bold font-mono">Packets Evaluated</span>
-                  <span className="font-mono text-xl font-bold text-indigo-400 mt-1 block">
-                    {incomingPackets.toLocaleString()}
-                  </span>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-[#030408] border border-gray-900 rounded-xl p-4 flex flex-col justify-between">
+                <span className="text-[10px] font-mono text-gray-500 font-semibold mb-3">Google Cloud (us-central)</span>
+                <div className="flex items-end justify-between">
+                  <span className="font-mono text-2xl font-bold text-gray-200">{pingGoogle.toFixed(1)}</span>
+                  <span className="text-[10px] font-mono text-gray-500 mb-1">ms</span>
                 </div>
               </div>
-
-              {/* Incremental simulator button to interact */}
-              <button 
-                onClick={() => {
-                  setIncomingPackets(prev => prev + 1240);
-                  setSimulationLogs(prev => [
-                    `[CLIENT-TRIGGER] Manually rebalancing DNS weights. Dispatched routing packet successfully.`,
-                    ...prev.slice(0, 4)
-                  ]);
-                }}
-                className="w-full bg-[#070910] hover:bg-[#0a0d18] border border-indigo-500/10 hover:border-indigo-500/25 text-white font-mono tracking-wide font-medium px-4 py-3 rounded-xl text-xs transition-all flex items-center justify-center space-x-2"
-              >
-                <Cpu className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Trigger Router Flush Test</span>
-              </button>
+              <div className="bg-[#030408] border border-gray-900 rounded-xl p-4 flex flex-col justify-between">
+                <span className="text-[10px] font-mono text-gray-500 font-semibold mb-3">Cloudflare Edge (1.1.1.1)</span>
+                <div className="flex items-end justify-between">
+                  <span className="font-mono text-2xl font-bold text-cyan-400">{pingCF.toFixed(1)}</span>
+                  <span className="text-[10px] font-mono text-gray-500 mb-1">ms</span>
+                </div>
+              </div>
+              <div className="bg-[#030408] border border-gray-900 rounded-xl p-4 flex flex-col justify-between">
+                <span className="text-[10px] font-mono text-gray-500 font-semibold mb-3">AWS Region (eu-west)</span>
+                <div className="flex items-end justify-between">
+                  <span className="font-mono text-2xl font-bold text-indigo-400">{pingAWS.toFixed(1)}</span>
+                  <span className="text-[10px] font-mono text-gray-500 mb-1">ms</span>
+                </div>
+              </div>
+              <div className="bg-indigo-950/20 border border-indigo-500/15 rounded-xl p-4 flex flex-col justify-between items-center text-center">
+                <Globe className="w-5 h-5 text-indigo-400 mb-2 opacity-50" />
+                <span className="text-[10px] font-mono text-indigo-300 font-semibold leading-tight">12 Global Regions<br/>Active & Synced</span>
+              </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="bg-[#04050a] border border-gray-900 rounded-2xl p-5 font-mono text-xs flex flex-col justify-between h-[340px] shadow-2xl relative text-left">
-              
-              <div className="border-b border-gray-900 pb-3 flex items-center justify-between text-gray-500 text-[9px] uppercase font-bold tracking-wider">
-                <span>Core Integrals Monitor</span>
-                <span className="text-emerald-400 animate-pulse flex items-center space-x-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1" />
-                  <span>Daemon Synchronized</span>
-                </span>
-              </div>
-
-              {/* Logs Stream */}
-              <div className="flex-grow overflow-y-auto mt-4 space-y-2 pr-2 custom-log-scroll scroll-smooth text-[10.5px]">
-                <AnimatePresence>
-                  {simulationLogs.map((log, index) => {
-                    let colorClass = 'text-gray-400';
-                    if (log.includes('[CLIENT-TRIGGER]')) colorClass = 'text-purple-400 font-bold';
-                    if (log.includes('[HEALTH-DAEMON]')) colorClass = 'text-emerald-400';
-                    if (log.includes('[CORE-ROUTE')) colorClass = 'text-cyan-400';
-
-                    return (
-                      <motion.div 
-                        key={index}
-                        initial={{ opacity: 0, x: -5 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className={`${colorClass} font-mono leading-relaxed border-l-2 border-gray-900 pl-3 py-0.5`}
-                      >
-                        {log}
-                      </motion.div>
-                    );
-                  })}
-                </AnimatePresence>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-gray-900/60 text-gray-500 text-[10px] flex items-center justify-between uppercase">
-                <span>Secure SSL Gateway v3</span>
-                <span>Port 3000 Secured</span>
-              </div>
+          {/* Right Column: Terminal Logs */}
+          <div className="md:col-span-7 bg-[#020306] border border-gray-900 rounded-xl p-4 flex flex-col h-[230px]">
+            <div className="flex items-center space-x-2 text-gray-500 border-b border-gray-900 pb-3 mb-3">
+              <Terminal className="w-4 h-4" />
+              <span className="text-[10px] font-mono uppercase tracking-wider font-semibold">Infrastructure Telemetry Stream</span>
+            </div>
+            <div className="flex-grow overflow-hidden relative">
+              <AnimatePresence>
+                {logs.map((log, i) => (
+                  <motion.div
+                    key={log + i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="text-[11px] font-mono leading-relaxed mb-2 flex space-x-2"
+                  >
+                    <span className="text-gray-600 min-w-16">[{new Date().toISOString().substring(11, 19)}]</span>
+                    <span className={
+                      log.includes('[SECURITY]') ? 'text-cyan-400' :
+                      log.includes('[ROUTER]') || log.includes('[NODE') ? 'text-indigo-400' :
+                      'text-gray-400'
+                    }>{log}</span>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer id="it-landing-footer" className="relative z-10 w-full max-w-5xl px-6 border-t border-gray-900/40 mt-16 pt-8 pb-12">
+      {/* SIMPLIFIED SOPHISTICATED FOOTER */}
+      <footer id="it-universe-footer" className="relative z-10 w-full max-w-5xl px-6 border-t border-gray-950 mt-12 pt-8 pb-12 text-center md:text-left">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-3 text-left">
-            <Z4XLogo size={24} className="text-gray-400" />
+          <div className="flex items-center space-x-3.5 text-left">
+            <Z4XLogo size={26} className="text-gray-400" />
             <div className="flex flex-col">
-              <span className="font-display font-medium tracking-wider text-xs uppercase text-gray-300">
-                Z4XLabs<span className="text-gray-600 font-light font-sans inline-block ml-0.5">.com</span>
+              <span className="font-sans font-semibold text-xs tracking-wider uppercase text-gray-300">
+                Z4X Labs
               </span>
-              <span className="text-[8px] text-gray-600 font-mono uppercase tracking-widest mt-0.5">innovate. build. scale.</span>
+              <span className="text-[8.5px] text-gray-500 font-mono uppercase tracking-widest mt-0.5">
+                innovate • build • scale
+              </span>
             </div>
           </div>
 
-          <div className="text-[10px] text-gray-600 font-mono uppercase tracking-wider">
-            &copy; {new Date().getFullYear()} Z4X Labs. All infrastructure elements synchronized.
+          <div className="text-[10.5px] text-gray-500 font-mono tracking-wider">
+            &copy; {new Date().getFullYear()} Z4X Labs. All enterprise operations are verified & secure.
           </div>
         </div>
       </footer>
